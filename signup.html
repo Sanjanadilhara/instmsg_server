@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>home</title>
+</head>
+<body>
+    <input type="text" name="name" id="name" placeholder="Name">
+    <input type="email" name="email" id="email" placeholder="Email">
+    <input type="password" name="pass" id="pass"  placeholder="password">
+    <input type="password" name="vpass" id="vpass" placeholder="confpasford">
+    <button onclick="sendData()">sign up</button>
+
+    <script>
+        function sendData(){
+            const data = {
+                email: document.getElementById("email").value,
+                password: document.getElementById("pass").value,
+                name: document.getElementById("name").value
+            };
+
+            if(document.getElementById("pass").value != document.getElementById("vpass").value){
+                return;
+            }
+
+            fetch('./signup', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+            })
+            .then(response => response.json())
+            .then(responseData => {
+                console.log(responseData);
+                window.location.replace("/");
+            })
+        }
+    </script>
+</body>
+</html>
